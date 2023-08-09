@@ -1,0 +1,64 @@
+<h1>hello dude</h1>
+
+<div class="container">
+  <div class ="form-area">
+    <h2>create product</h2>
+    <form #productsForm="ngForm" (ngSubmit)="onProductCreate(productsForm.value)">
+      <label>Product name</label>
+      <input type="text" name="pName" ngModel>
+      <br>
+      <br>
+
+      <label>Product description</label>
+      <input type="text" name="pDesc" ngModel>
+      <br>
+      <br>
+
+      <label>Product price</label>
+      <input type="text" name="pPrice" ngModel>
+      <br>
+      <br>
+
+      <input type="submit" value="{{editMode ? 'Update Product' :'Add Product'}}">
+    </form>
+
+  </div>
+  <div class ="product-display-area">
+    <h3>All products</h3>
+    <table id="products">
+      <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th></th>
+      </tr>
+      <tr *ngIf="allProducts.length <1 && !isfetching">
+        <td colspan="5"> No product Available</td>
+      </tr>
+      <tr *ngIf="errMessage">
+        <td colspan="5"> {{errMessage}}</td>
+      </tr>
+      <tr *ngIf="isfetching && !errMessage">
+        <td colspan="5"> Loading.....</td>
+      </tr>
+      <tr *ngFor="let prod of allProducts; index as i" >
+        <td>{{i+1}}</td>
+        <td>{{prod.pName}}</td>
+        <td>{{prod.pDesc}}</td>
+        <td>{{prod.pPrice}}</td>
+        <td><button class="btn-delete" (click)="onDeleteProduct(prod.id)">Delete</button></td>
+        <td><button class="btn-edit" (click)="onEditClicked(prod.id)" >Edit</button></td>
+      </tr>
+    </table>
+    <input type="submit" value="Fetch Product" (click)="OnProductFetch()">
+    <button class="btn-clear" (click)="onDeleteAllProducts()">Clear</button>
+ 
+
+  </div>
+
+
+
+
+
+</div>
